@@ -5,7 +5,7 @@ ext_module = Extension(
     "dynamic",
     ["dynamic.pyx"],
     language="c++",
-    extra_compile_args=["-std=c++11", "-stdlib=libc++", "-mmacosx-version-min=10.9"],
+    extra_compile_args=["-std=c++11"],
     extra_link_args=["-std=c++11", "-mmacosx-version-min=10.9"]
 ) 
 
