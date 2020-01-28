@@ -223,6 +223,9 @@ class Track:
         if collision.path_intersections(self):
             return False
 
+        if not collision.path_cross(self):
+            return False
+
         return True
 
     def to_image(self):

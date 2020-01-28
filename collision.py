@@ -83,3 +83,33 @@ def path_intersections(track):
                 opened.remove(line)
     return False
 
+def path_cross(track):
+    segments = collections.defaultdict(list)
+    for i, segment in enumerate(track.path):
+        start = track.pos[i]
+        end = track.pos[i+1]
+        height = track.level[i]
+        line = LineSegment(i, start, end)
+        segments[height].append(line)
+
+    for lines in segments.values():
+        events = []
+        for line in lines:
+            start = line.start
+            end = line.end
+            if start[0] > end[0]:
+                start, end = end, start
+            events.append((start[0], 0, line))
+            events.append((end[0], 1, line))
+        events.sort()
+        opened = set()
+        for pos, etype, line in events:
+            if etype == 0:
+                for line2 in opened:
+                    if abs(line2.id - line.id) > 1 and line_intersection(line, line2):
+                        return True
+                opened.add(line)
+            else:
+                opened.remove(line)
+        return False
+
